@@ -8,13 +8,13 @@ function App() {
   const [wallets, setWallets] = useState([]);
   const [isDeploying, setIsDeploying] = useState(false);
 
+  // Fonction pour déployer le coin
   const deployMemeCoin = async () => {
     if (!coinName || !symbol) return;
 
     setIsDeploying(true);
     
     try {
-      // Simuler le déploiement
       await fetch('/api/deploy', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -26,6 +26,11 @@ function App() {
       });
 
       alert(`Coin "${coinName}" déployé avec succès !`);
+
+      // Afficher le lien vers Pump.fun
+      const pumpfunUrl = `https://pump.fun/${coinName}`;
+      window.open(pumpfunUrl, '_blank');
+      
     } catch (error) {
       console.error(error);
       alert('Erreur lors du déploiement.');
@@ -34,6 +39,7 @@ function App() {
     }
   };
 
+  // Fonction pour créer un wallet
   const createWallet = () => {
     const newWallet = `wallet_${Date.now()}`;
     setWallets(prev => [...prev, newWallet]);
@@ -88,10 +94,27 @@ function App() {
       {/* Affichage du coin déployé */}
       <div style={{ margin: '20px' }}>
         <h3>Coins Déployés</h3>
-        <ul>
-          {coinName && (
+        {coinName && (
+          <ul>
             <li><strong>{coinName} ({symbol})</strong> - Frais : {feeAmount} SOL</li>
-          )}
+            {/* Lien vers Pump.fun */}
+            <li style={{ marginTop: '10px' }}>
+              👉 <a href={`https://pump.fun/${coinName}`} target="_blank" rel="noreferrer">
+                Voir le Coin sur Pump.fun
+              </a>
+            </li>
+          </ul>
+        )}
+      </div>
+
+      {/* Prochaines fonctionnalités à ajouter */}
+      <div style={{ margin: '20px', backgroundColor: '#f0f0f0', padding: '15px', borderRadius: '8px' }}>
+        <h3>🚀 Prochaines fonctionnalités à ajouter :</h3>
+        <ul style={{ paddingLeft: '20px' }}>
+          <li>✅ Gestion des frais en SOL via RPC Solana</li>
+          <li>✅ Création d’un pool LP avec spl-token</li>
+          <li>✅ Intégration de Pump.fun API (générer l’URL)</li>
+          <li>✅ Déploiement multi-wallets (créer plusieurs coins en un clic)</li>
         </ul>
       </div>
 
