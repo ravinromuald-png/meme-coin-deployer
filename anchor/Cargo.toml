@@ -1,0 +1,10 @@
+[package]
+name = "meme_coins"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+anchor-lang = { version = "0.26.0", features = ["no-entrypoint"] }
+anchor-spl = { version = "0.26.0" }
+solana-program = "1.15.0"
+serde = { version = "1.0", features = ["derive"] }
